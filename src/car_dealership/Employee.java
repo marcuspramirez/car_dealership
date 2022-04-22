@@ -6,8 +6,41 @@ public class Employee {
     String role;
 
 
-    public void runCreditHistory(Customer cust, double dollarAmount){
-        System.out.println("Checking Credit History... ");
+    public void chooseBestCustomer(Customer cust, Customer cust2, Employee employee1){
+        // See which customer has more cash and better credit
+
+        Customer betterCustomer;
+        Employee salesman = employee1;
+
+        if(cust.getCashOnHand() > cust2.getCashOnHand()){
+            betterCustomer = cust;
+        } else {
+            betterCustomer = cust2;
+        }
+
+//        sayCongrats(betterCustomer);
+        introduction(salesman, betterCustomer);
+
+
+    }
+
+    public void sayCongrats(Customer cust){
+        System.out.println("I'll be happy to help you today " + cust.getName() + "!");
+    }
+
+    public void introduction(Employee emp, Customer cust){
+        System.out.println("Hi " + cust.getName() + " I'm " + emp.name + " I spoke to you on the phone earlier");
+    }
+
+
+    public void runCreditHistory(Customer cust){
+        System.out.println("We'd love to help you finance, let me run the numbers... ");
+        if(cust.getCreditScore() < 600){
+            System.out.println("Sorry " + cust.getName() + ", you do not qualify for financing");
+        } else {
+            System.out.println("Good news, you qualify for financing!");
+            sayCongrats(cust);
+        }
     }
 
     public void processTransaction(Customer cust, Vehicle vehicle){
@@ -16,7 +49,7 @@ public class Employee {
 
     public void handleCustomer(Customer cust, boolean finance, Vehicle vehicle){
         if(finance){
-            runCreditHistory(cust, 10000);
+            runCreditHistory(cust);
         } else if (vehicle.getPrice() <= cust.getCashOnHand()){
             processTransaction(cust, vehicle);
         } else {
